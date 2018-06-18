@@ -66,7 +66,6 @@ module SitePrismPlusCommons
     nretry = 0
     res = false
     while nretry < max_retry && !res do
-      puts "CHECKING VISIBLE!!!!!!!!!!! #{element_name} result #{res}"
       nretry += 1
       res = is_element_visible?(element_name)
       if !visible_test
@@ -74,7 +73,6 @@ module SitePrismPlusCommons
       end
 
       if !res
-        puts "WAITING VISIBILITY"
         sleep(1)
       end
     end
