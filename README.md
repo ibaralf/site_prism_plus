@@ -45,7 +45,7 @@ Loads the page and verifies if the element expected is present. Method __load_an
 as a parameter. The page is loaded and the element is checked until visible.
 ```ruby
 demo_site = DemoSite.new('page_description')
-demo_site.load('header_logo')
+demo_site.load_and_verify('header_logo')
 ```
 
 #### Clicking an element
@@ -54,6 +54,10 @@ exceptions and does a retry. If a second element is passed as a parameter, it ve
 to determine if the click action was successful.
 ```ruby
 demo_site.click_element('sub_link', 'click_result_elem')
+
+# or 
+
+demo_site.click_element('sub_link')
 ```
 
 #### Send keys and verify
