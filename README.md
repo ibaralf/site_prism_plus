@@ -1,7 +1,5 @@
 # SitePrismPlus
 
-###THIS IS NOT PUBLISHED YET.
-
 Extends the page object model [site_prism ruby gem](https://github.com/natritmeyer/site_prism). It adds common methods to make test execution robust. The gem also can log events such as click errors or page load times into a flat file.
 
 Dynamic single page applications are getting difficult to test usually caused by timing issues resulting in raised 
@@ -9,8 +7,6 @@ exceptions. Automation frameworks or util libraries are typically written to cat
 is a great POM framework so it's quite useful extend it and put your utils.
 
 ## Installation
-
-###THIS IS NOT PUBLISHED YET.
 
 Add this line to your application's Gemfile:
 
