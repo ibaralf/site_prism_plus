@@ -99,7 +99,7 @@ describe "Extended Plus Page" do
   end
 
   it 'should log metrics data if enabled' do
-    ENV['SITEPRISM_PLUS_ENABLED'] = "true"
+    ENV['SITEPRISM_METRICS_ENABLED'] = "true"
     documentation.log_transition_metric('homepage_link', 'homepage_header')
     if File.exist?(demo_site.metrics_file)
       result = File.read(demo_site.metrics_file).include?('click,homepage_header')

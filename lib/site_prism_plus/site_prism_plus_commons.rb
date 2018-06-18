@@ -276,9 +276,9 @@ module SitePrismPlusCommons
   def dbg_msg(dlevel, msg, msg_tag = nil)
     case dlevel.downcase
       when 'info'
-        puts "INFO: #{msg}" if ENV['SITEPRISM_METRICS_DEBUG']
+        puts "INFO: #{msg}" if ENV['SITEPRISM_PLUS_DEBUG']
       when 'error'
-        puts "ERROR: #{msg}" if ENV['SITEPRISM_METRICS_DEBUG']
+        puts "ERROR: #{msg}" if ENV['SITEPRISM_PLUS_DEBUG']
         log_metric(@page_name, msg, msg_tag) if ENV['SITEPRISM_METRICS_ENABLED']
     end
   end

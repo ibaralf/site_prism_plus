@@ -48,7 +48,7 @@ class Metrics
   end
 
   def log_metric(page, action, tag)
-    return unless ENV['SITEPRISM_PLUS_ENABLED']
+    return unless ENV['SITEPRISM_METRICS_ENABLED']
     @etime = Time.now
     time_laps = @etime - @stime
     CSV.open(@default_log_file, "a") do |csv|
@@ -57,7 +57,7 @@ class Metrics
   end
 
   def log_error_metric(page, action, tag)
-    return unless ENV['SITEPRISM_PLUS_ENABLED']
+    return unless ENV['SITEPRISM_METRICS_ENABLED']
     CSV.open(@default_log_file, "a") do |csv|
       csv << [page, action, tag]
     end
