@@ -17,6 +17,7 @@ describe "Original SIte Prism Section" do
     element :popup_cancel, '#onesignal-popover-cancel-button'
     element :popup_img, :xpath, '//img[@src="https://img.onesignal.com/t/e998c836-a08e-443d-8a04-ae42122635e1.png"]'
     element :popup_box, '#onesignal-popover-dialog'
+    element :non_exist, '#doesnotexist'
     section :menu, MenuSection, :xpath, '//a[contains(text(), "Demo")]'
     set_url "https://phptravels.com/demo/"
   end
@@ -29,6 +30,11 @@ describe "Original SIte Prism Section" do
     expect(demo_site).to have_menu
   end
 
+  it 'should not find non_exist element' do
+    result = demo_site.wait_until_non_exist_visible
+    expect(result).to equal true
+  end
+
   it 'should have allow click_element passing a section element' do
     demo_site.wait_for_popup_cancel
     demo_site.popup_cancel.click
@@ -38,6 +44,11 @@ describe "Original SIte Prism Section" do
   it 'should click section element through page' do
     demo_site.menu.order.click
     expect(demo_site.menu).to have_order_header
+  end
+
+  it 'should not find non_exist element' do
+    result = demo_site.wait_until_non_exist_visible
+    expect(result).to equal true
   end
 
 end
