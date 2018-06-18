@@ -102,6 +102,8 @@ saved in a flat file and can be graphed (separate application).
 
 By default, metrics are saved in current working directory __./results/metrics.txt__
 
+
+
 #### Enable capture metrics
 Set environment variable *_SITEPRISM_METRICS_ENABLED_*
 

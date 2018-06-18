@@ -30,11 +30,11 @@ module SitePrismPlusCommons
     #   dbg_msg("Finding Element raised StaleElementReferenceError #{loc_type_or_element}", 'error')
     #   return
     rescue Exception => e
-      dbg_msg('error',"Finding Element unexpected exception #{loc_type_or_element} #{e.message}")
+      dbg_msg('error',"Finding Element unexpected exception #{loc_type_or_element} #{e.message}", loc_type_or_element)
       return
     end
     if !ret_elem
-      dbg_msg('error',"Finding Element #{loc_type_or_element}NOT FOUND.")
+      dbg_msg('error',"Finding Element #{loc_type_or_element}NOT FOUND.", loc_type_or_element)
     end
     ret_elem
   end
@@ -66,12 +66,15 @@ module SitePrismPlusCommons
     nretry = 0
     res = false
     while nretry < max_retry && !res do
+      puts "CHECKING VISIBLE!!!!!!!!!!! #{element_name} result #{res}"
       nretry += 1
       res = is_element_visible?(element_name)
       if !visible_test
         res = !res
       end
+
       if !res
+        puts "WAITING VISIBILITY"
         sleep(1)
       end
     end
@@ -114,8 +117,8 @@ module SitePrismPlusCommons
           dbg_msg('info', "Expected element after click: #{expected_element_name} visible? - #{result}")
         end
       end
-      if !result
-        dbg_msg('info', "Retry click: #{expected_element_name} visible? - #{result}")
+      if !result && nretry < 2
+        dbg_msg('error', "retry_click", element_name)
         sleep(1)
       end
     end
@@ -136,7 +139,7 @@ module SitePrismPlusCommons
       begin
         elem_input.send_keys(txt_to_send)
       rescue Selenium::WebDriver::Error::StaleElementReferenceError
-        dbg_msg('error', "StaleElement exception send_keys to element: #{element_name}")
+        dbg_msg('error', "StaleElement exception send_keys to element: #{element_name}", element_name)
         return false
       end
       result = true
@@ -154,7 +157,7 @@ module SitePrismPlusCommons
         begin
           elem_input.send_keys(onechar)
         rescue Selenium::WebDriver::Error::StaleElementReferenceError
-          dbg_msg('error', "StaleElement exception send_keys to element: #{element_name}")
+          dbg_msg('error', "StaleElement exception send_keys to element: #{element_name}", element_name)
           return false
         end
         sleep(0.5)
@@ -183,7 +186,7 @@ module SitePrismPlusCommons
             return true
           end
         rescue Selenium::WebDriver::Error::StaleElementReferenceError
-          dbg_msg('error', "StaleElement exception wait_for_text in element: #{element_name}")
+          dbg_msg('error', "StaleElement exception wait_for_text in element: #{element_name}", element_name)
         end
       end
       sleep(1)

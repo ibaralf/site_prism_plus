@@ -18,6 +18,7 @@ describe "Extended Plus Page" do
     element :product_menu, :xpath, '//span[contains(text(), "Product")]'
     element :documentation, :xpath, '//a[@href="//phptravels.com/documentation/"]'
     element :doc_header, :xpath, '//h2[contains(text(), "Documentation")]'
+    element :non_exist, '#doesnotexist'
     set_url "https://phptravels.com/demo/"
   end
 
@@ -103,6 +104,18 @@ describe "Extended Plus Page" do
     documentation.log_transition_metric('homepage_link', 'homepage_header')
     if File.exist?(demo_site.metrics_file)
       result = File.read(demo_site.metrics_file).include?('click,homepage_header')
+    else
+      result = false
+    end
+    expect(result).to equal true
+  end
+
+  it 'should log transition metrics even if element is not found' do
+    demo_site.reset_logfile
+    ENV['SITEPRISM_METRICS_ENABLED'] = "true"
+    demo_site.log_transition_metric('logo', 'non_exist')
+    if File.exist?(demo_site.metrics_file)
+      result = File.read(demo_site.metrics_file).include?('click,non_exist')
     else
       result = false
     end
