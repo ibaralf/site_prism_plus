@@ -1,12 +1,12 @@
 require "rspec"
 require "bundler/setup"
-#require "site_prism_metrics"
+require "site_prism_plus"
 require "selenium-webdriver"
 require "capybara/rspec"
 require "capybara/dsl"
-require "pry"
-require_relative '../lib/site_prism_plus/page.rb'
-require_relative '../lib/site_prism_plus/section.rb'
+#require "pry"
+#require_relative '../lib/site_prism_plus/page.rb'
+#require_relative '../lib/site_prism_plus/section.rb'
 
 RSpec.configure do |config|
   include Capybara::RSpecMatchers
