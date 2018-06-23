@@ -31,7 +31,7 @@ Gem::Specification.new do |spec|
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
-  spec.add_dependency "site_prism", "~> 2.9"
+  spec.add_dependency "site_prism", "~> 2.8"
 
   # NOTE: breaking with pry seems to affect webdriver that it could
   #       not find the elements in the current window
