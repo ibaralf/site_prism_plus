@@ -44,6 +44,11 @@ demo_site = DemoSite.new('page_description')
 demo_site.load_and_verify('header_logo')
 ```
 
+Using parametized URL, pass the hash as a second parameter.
+```
+demo_site.load_and_verify('username', url_part: 'login')
+```
+
 #### Clicking an element
 Clicking an element sometimes results in exceptions such as StateElement. Method __click_element__ catches 
 exceptions and does a retry. If a second element is passed as a parameter, it verifies this second element 
