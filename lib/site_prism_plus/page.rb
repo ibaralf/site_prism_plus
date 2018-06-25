@@ -15,8 +15,19 @@ module SitePrismPlus
     end
 
     # Page loads typically takes longer.
-    def load_and_verify(element_name)
-      load_override(element_name)
+    def load_and_verify(verify_element, url_hash = nil)
+      result = true
+      @metrics.start_time
+      if url_hash.nil?
+        load
+      else
+        load(url_hash)
+      end
+      if verify_element
+        result = wait_till_element_visible(verify_element, 3)
+      end
+      @metrics.log_metric(@page_name, 'load', verify_element)
+      result
     end
 
     def log_transition_metric(click_element, verify_element)
@@ -32,19 +43,6 @@ module SitePrismPlus
 
     def metrics_file
       @metrics.default_log_file
-    end
-
-    private
-
-    def load_override(verify_element = nil)
-      result = true
-      @metrics.start_time
-      load
-      if verify_element
-        result = wait_till_element_visible(verify_element, 3)
-      end
-      @metrics.log_metric(@page_name, 'load', verify_element)
-      result
     end
 
   end
