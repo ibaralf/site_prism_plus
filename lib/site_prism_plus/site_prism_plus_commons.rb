@@ -145,7 +145,7 @@ module SitePrismPlusCommons
     return result
   end
 
-  # Use when dealing with auto-complete fields
+  # Use when dealing with auto-complete fields such as search fields, address fields
   # Sends text to an input field one character at a time with a slight
   # delay between characters
   def send_chars(element_name, txt_to_send)
@@ -196,8 +196,9 @@ module SitePrismPlusCommons
   # Similar to send_chars, this method auto correct itself if the
   # text is not the same as what was sent
   # - happens with input fields not ready
+  # - pre-populated values
   # - character send does not register especially with auto-complete fields
-  def send_and_verify(element_name, txt_to_send)
+  def send_text(element_name, txt_to_send)
     nretry = 0
     while nretry < 2
       nretry += 1

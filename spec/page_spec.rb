@@ -68,8 +68,8 @@ describe "Extended Plus Page" do
     expect(result).to equal true
   end
 
-  it 'should type in keys with method send_and_verify' do
-    result = documentation.send_and_verify('doc_search', 'hotel')
+  it 'should type in keys with method send_text' do
+    result = documentation.send_text('doc_search', 'hotel')
     expect(result).to equal true
   end
 

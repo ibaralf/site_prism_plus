@@ -1,8 +1,8 @@
 PATH
   remote: .
   specs:
-    site_prism_plus (0.1.0)
-      site_prism (~> 2.9)
+    site_prism_plus (0.6.0)
+      site_prism (~> 2.8)
 
 GEM
   remote: https://rubygems.org/
@@ -57,7 +57,7 @@ GEM
     selenium-webdriver (3.10.0)
       childprocess (~> 0.5)
       rubyzip (~> 1.2)
-    site_prism (2.13)
+    site_prism (2.14)
       addressable (~> 2.4)
       capybara (~> 2.12)
     xpath (3.1.0)
@@ -76,4 +76,4 @@ DEPENDENCIES
   site_prism_plus!
 
 BUNDLED WITH
-   1.16.1
+   1.16.2

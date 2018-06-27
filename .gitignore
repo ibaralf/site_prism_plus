@@ -9,6 +9,7 @@
 **/results
 .DS_Store
 .idea
+*.gem
 
 # rspec failure tracking
 .rspec_status
