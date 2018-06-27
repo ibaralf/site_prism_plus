@@ -22,6 +22,10 @@ describe "Extended Plus Page" do
     set_url "https://phptravels.com/demo/"
   end
 
+  class NameTestPage < SitePrismPlus::Page
+    set_url "https:google.com"
+  end
+
   class Documentation < SitePrismPlus::Page
     element :doc_search, :id, 'docsQuery'
     element :payment_gateway, :xpath, '//div[contains(text(), "Payment Gateways")]'
@@ -31,6 +35,15 @@ describe "Extended Plus Page" do
 
   let(:demo_site) { DemoSite.new('demo_homepage') }
   let(:documentation) { Documentation.new('documentation_page') }
+  let(:name_test_page) { NameTestPage.new }
+
+  it 'should set page_name to class name if not defined' do
+    expect(name_test_page.page_name).to eql("NameTestPage")
+  end
+
+  it 'should set page_name to passed string' do
+    expect(demo_site.page_name).to eql("demo_homepage")
+  end
 
   it 'should have a url value' do
     demo_site.reset_logfile

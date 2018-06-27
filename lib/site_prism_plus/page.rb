@@ -9,8 +9,14 @@ module SitePrismPlus
   class Page < SitePrism::Page
     include SitePrismPlusCommons
 
-    def initialize(page_name)
-      @page_name = page_name
+    attr_accessor :page_name
+
+    def initialize(pname = nil)
+      if pname
+        @page_name = pname
+      else
+        @page_name = self.class.to_s
+      end
       @metrics = Metrics.instance
     end
 

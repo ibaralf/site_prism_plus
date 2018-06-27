@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    site_prism_plus (0.6.0)
+    site_prism_plus (0.6.1)
       site_prism (~> 2.8)
 
 GEM
