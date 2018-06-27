@@ -63,22 +63,23 @@ demo_site.click_element('sub_link')
 
 #### Send keys and verify
 For input fields with auto-complete or has match recommendation, sending keys to the field sometimes results with several 
-issues. Method __send_and_verify__ sends the text to an input field and verifies field has the correct text. If not
+issues. Method __send_text__ sends the text to an input field and verifies field has the correct text. If not
 field is cleared and text is resent.
 ```ruby
-demo_site.send_and_verify('name_input_field', 'some_user_name')
+demo_site.send_text('name_input_field', 'some_user_name')
 ```
 
 #### Send chars
-Sends text to an input field one character at a time with a slight delay between characters. Useful when checking for 
-auto-complete or search matching. 
+Checking auto-completion fields such as search or address fields looks at each character sent. 
+Method __send_chars__ sends text to an input field one character at a time with a slight delay between characters. Useful when checking for 
+matching results. 
 ```ruby
 demo_site.send_chars('search_input', 'cheap flights')
 ```
 
 #### Checking Visibility
-Returns true or false if an element is found and is visible. Catches possible exceptions 
-(ex. SitePrism::TimeOutWaitingForElementVisibility:).
+Returns assertion if an element is found and is visible(true or false). Catches possible exceptions such as those
+ raised by site_prism (ex. SitePrism::TimeOutWaitingForElementVisibility:).
 * is_element_visible('name_of_element')
 * wait_till_element_visible('name_of_element')
 * wait_till_element_not_visible('name_of_element')
@@ -87,7 +88,7 @@ demo_site.wait_till_element_visible('header_logo')
 ```
 
 #### Hover and click
-Useful for hover activated drop downs. An optional third parameter (expected_element) can be passed. This element will
+Used for hover activated drop downs. An optional third parameter (expected_element) can be passed. This element will
 be verified to determine if the click was successful.
 ```ruby
 demo_site.hover_and_click('hover_element', 'drop_option')
