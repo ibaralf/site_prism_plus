@@ -36,6 +36,20 @@ class DemoSite < SitePrismPlus::Page
 end
 ```
 
+#### Creating a new Page class
+An optional parameter is just a string to set the page name (used for logging). If this parameter is skipped, the page name is set to the name of the class. This name is only used for logging.
+```ruby
+my_test_site = AcmeInternational.new('homepage_acme')
+my_test_site.page_name
+# 'homepage_acme'
+
+# or
+
+my_test_site = AcmeInternational.new
+my_test_site.page_name
+# 'AcmeInternational'
+```
+
 #### Loading the page and verify element
 Loads the page and verifies if the element expected is present. Method __load_and_verify__ takes an element 
 as a parameter. The page is loaded and the element is checked until visible.
