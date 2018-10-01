@@ -24,7 +24,7 @@ module CapybaraHelper
   end
 
   Capybara.javascript_driver = :chrome
-  Capybara.wait_on_first_by_default = true
+  #Capybara.wait_on_first_by_default = true
   Capybara.configure do |config|
     config.default_max_wait_time = 5 # seconds
     config.default_driver        = :chrome
