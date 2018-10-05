@@ -34,9 +34,35 @@ module SitePrismPlusCommons
       return
     end
     if !ret_elem
-      dbg_msg('error',"Finding Element #{loc_type_or_element}NOT FOUND.", loc_type_or_element)
+      dbg_msg('error',"Finding Element #{loc_type_or_element} NOT FOUND.", loc_type_or_element)
     end
     ret_elem
+  end
+
+  # Finds all element on the browser using locator
+  # * *Args*    :
+  #   - +locator_type+ -> name of element or locator type (:xpath, :id, ...)
+  #   - +locator+ -> syntax for element locator
+  #   - +elem_index+ -> integer, index in array of elements
+  # * *Returns* :
+  #   - Array of Capybara::Node::Element objects if found, empty Array if not found
+  #   - Capybara::Node::Element object if elem_index is passed
+  def find_elements(locator_type, locator, elem_index = nil)
+    all_elems = []
+    begin
+      all_elems = all(locator_type, locator)
+    rescue Exception => e
+      dbg_msg('error',"Finding Element unexpected exception #{locator} #{e.message}", locator)
+      return []
+    end
+    if all_elems.size <= 0
+      dbg_msg('error',"Finding Element #{locator} NOT FOUND.", locator)
+    else
+      if elem_index
+        return all_elems[elem_index]
+      end
+    end
+    all_elems
   end
 
   # Wraps click call inside begin-rescue to catch possible
@@ -158,7 +184,7 @@ module SitePrismPlusCommons
           dbg_msg('error', "StaleElement exception send_keys to element: #{element_name}", element_name)
           return false
         end
-        sleep(0.5)
+        sleep(0.3)
       end
 
       if wait_for_text(element_name, txt_to_send)
