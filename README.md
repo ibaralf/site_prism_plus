@@ -63,6 +63,26 @@ Using parametized URL, pass the hash as a second parameter.
 demo_site.load_and_verify('username', url_part: 'login')
 ```
 
+#### Finding Element or Multiple Elements
+This catches exceptions if element does not exist. Two ways to find element, using the site_prism
+element name or directly passing locator type and the locator.
+```ruby
+demo_site.find_element('name_input_field') 
+# or
+demo_site.find_element(:xpath, '//input[@class="bold-box"]')
+```
+
+For cases where multiple elements matches the locator (very common for seaching in tables), 
+you need to use find_elements method. It returns an array of Capybara::Node::Element objects. 
+If an index value is passed, it returns a single element object.
+
+NOTE: Parameters for find_elements method require a locator type and the locator. It cannot 
+take the site_prism element name.
+```ruby
+demo_site.find_elements(:xpath, '//table[@class="lh-product-table"]//input')
+```
+
+
 #### Clicking an element
 Clicking an element sometimes results in exceptions such as StateElement. Method __click_element__ catches 
 exceptions and does a retry. If a second element is passed as a parameter, it verifies this second element 
