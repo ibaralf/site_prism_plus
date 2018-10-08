@@ -1,5 +1,4 @@
 require_relative 'spec_helper'
-
 # NOTES:
 # - phptravels.com is a good site to test since it has timing variations.
 # - This site's popup notification - after clicking cancel to close the popup, immediate execution
@@ -19,6 +18,9 @@ describe "Extended Plus Page" do
     element :documentation, :xpath, '//a[@href="//phptravels.com/documentation/"]'
     element :doc_header, :xpath, '//h2[contains(text(), "Documentation")]'
     element :non_exist, '#doesnotexist'
+    element :non_exist_2, '#anothernonexist'
+
+    element :multiple_elements, :xpath, '//strong[contains(text(), "Password")]'
     set_url "https://phptravels.com/demo/"
   end
 
@@ -74,6 +76,20 @@ describe "Extended Plus Page" do
       end
     end
     expect(true).to equal true
+  end
+
+  it 'should have find_elements method for multiple elements' do
+    result = false
+    multiple_elements = demo_site.find_elements(:xpath, '//strong[contains(text(), "Password")]')
+    if multiple_elements.size > 0
+      result = true
+    end
+    expect(result).to equal true
+  end
+
+  it 'should have find_first_element for fork flows or A-B type tests' do
+    result_index = demo_site.find_possible_element(%w(non_exist non_exist_2 product_menu))
+    expect(result_index).to equal 2
   end
 
   it 'should have method hover_and_click' do

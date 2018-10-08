@@ -77,11 +77,18 @@ you need to use find_elements method. It returns an array of Capybara::Node::Ele
 If an index value is passed, it returns a single element object.
 
 NOTE: Parameters for find_elements method require a locator type and the locator. It cannot 
-take the site_prism element name.
+take the site_prism element name ().
 ```ruby
-demo_site.find_elements(:xpath, '//table[@class="lh-product-table"]//input')
+demo_site.find_elements(:xpath, '//input[@class="user_name"]')
 ```
 
+#### Finding an element from an array of locators. 
+Some site navigation changes depending on the user input or pages can be different due to A-B testing.
+This requires searching for POSSIBLE elements rather than one specific element. Method find_possible_element
+will find the the first occurrence of an element given an array of locators.
+```ruby
+demo_site.find_possible_element(['non_exist'])
+```
 
 #### Clicking an element
 Clicking an element sometimes results in exceptions such as StateElement. Method __click_element__ catches 
