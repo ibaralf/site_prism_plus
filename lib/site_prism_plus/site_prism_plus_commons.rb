@@ -65,10 +65,31 @@ module SitePrismPlusCommons
     all_elems
   end
 
+  # Finds first occurrence of an element given an array of different locators. Useful for A-B flows.
+  # * *Args*    :
+  #   - +locators+ -> Array of site_prism locator names
+  #   - +max_retry+ -> Integer, number of times it would loop searching for element. A delay of 1 sec between loop
+  # * *Returns* :
+  #   - Integer, index of array cell of the first locator element found.
+  #     returns -1, if no element from the array is found
+  def find_possible_element(locators, max_retry = 2)
+    nretry = 0
+    while nretry < max_retry do
+      locators.each_with_index do |elem_locator, index|
+        if is_element_visible?(elem_locator)
+          return index
+        end
+      end
+      nretry += 1
+      sleep(1)
+    end
+    return -1
+  end
+
   # Wraps click call inside begin-rescue to catch possible
   # raised exceptions
   # * *Args*    :
-  #   - +element_object+ -> capybara element obj, Capybara::Element
+  #   - +element_name+ -> capybara element obj, Capybara::Element
   # * *Returns* :
   #   - true if no exceptions are raised after clicking on element
   #     false if exception is caught
