@@ -74,15 +74,16 @@ module SitePrismPlusCommons
   #     returns -1, if no element from the array is found
   def find_possible_element(locators, max_retry = 2)
     nretry = 0
-    found_one = false
-    while nretry < max_retry && !found_one do
+    while nretry < max_retry do
       locators.each_with_index do |elem_locator, index|
         if is_element_visible?(elem_locator)
           return index
         end
       end
+      nretry += 1
       sleep(1)
     end
+    return -1
   end
 
   # Wraps click call inside begin-rescue to catch possible
