@@ -245,12 +245,13 @@ module SitePrismPlusCommons
   # - happens with input fields not ready
   # - pre-populated values
   # - character send does not register especially with auto-complete fields
-  def send_text(element_name, txt_to_send)
+  def send_text(element_name, txt_to_send, expected_text = nil)
     nretry = 0
+    expected_text ||= txt_to_send
     while nretry < 2
       nretry += 1
       if send_keys(element_name, txt_to_send)
-        if wait_for_text(element_name, txt_to_send)
+        if wait_for_text(element_name, expected_text)
           return true
         end
       end
