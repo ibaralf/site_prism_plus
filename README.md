@@ -93,13 +93,21 @@ demo_site.find_possible_element(['non_exist'])
 #### Clicking an element
 Clicking an element sometimes results in exceptions such as StateElement. Method __click_element__ catches 
 exceptions and does a retry. If a second element is passed as a parameter, it verifies this second element 
-to determine if the click action was successful.
+to determine if the click action was successful. 
+
+A third optional parameter (boolean) can be passed to verify visibility of the expected element. If true (default) - expected element is verified to be visible after click action. If false, expected element is verified to not be present on the page anymore after the click action.
 ```ruby
 demo_site.click_element('sub_link', 'click_result_elem')
 
 # or 
 
 demo_site.click_element('sub_link')
+
+# Clicking an element and verifying that an element does not show anymore on the page
+#  - verifies that the page transitioned away from the current page
+
+demo_site.click_element('elem_to_click', 'elem_to_verify', false)
+# Capybara::Element 'elem_to_verify' will be checked after the click action if it is not visible anymore
 ```
 
 #### Send keys and verify
