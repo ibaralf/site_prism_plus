@@ -143,12 +143,12 @@ module SitePrismPlusCommons
   # * *Args*    :
   #   - +element_name+ -> name of element defined
   #   - +expected_element_name+ -> name of element to verify after the click
-  #   - +expected_type+ -> locator type of element to verify
-  #   - +expected_locator+ -> syntax for element to verify
+  #   - +till_visible+ -> boolean, if true will wait till expected_element_name is visible
+  #                     if false, will wait till expected_element_name is no longer visible
   # * *Returns* :
   #   - true if after clicking an element the expected element is found
   #     false otherwise
-  def click_element(element_name, expected_element_name = nil)
+  def click_element(element_name, expected_element_name = nil, till_visible = true)
     result = false
     nretry = 0
     while !result && nretry < 2
@@ -158,8 +158,16 @@ module SitePrismPlusCommons
         result = click_action(elem_to_click, element_name)
         dbg_msg('info',"Clicking element - #{element_name}")
         if expected_element_name
-          result = is_element_visible?(expected_element_name)
-          dbg_msg('info', "Expected element after click: #{expected_element_name} visible? - #{result}")
+          result = true
+          visibility = is_element_visible?(expected_element_name)
+          if till_visible && !visibility
+            result = false
+            dbg_msg('error', "Expected element after click: #{expected_element_name} visible? - #{result}")
+          end
+          if !till_visible && visibility
+            result = false
+            dbg_msg('error', "Element still visible after click: #{expected_element_name} visible? - #{result}")
+          end
         end
       end
       if !result && nretry < 2
