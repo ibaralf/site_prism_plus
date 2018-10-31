@@ -242,30 +242,45 @@ module SitePrismPlusCommons
           dbg_msg('error', "StaleElement exception wait_for_text in element: #{element_name}", element_name)
         end
       end
-      sleep(1)
+      sleep(0.5)
     end
     return false
+  end
+
+  # Compares value of text within the element
+  def verify_text(element_name, expected_text)
+    element_with_text = find_element(element_name)
+    if element_with_text
+      element_with_text.value == expected_text
+    else
+      return false
+    end
   end
 
 
   # Similar to send_chars, this method auto correct itself if the
   # text is not the same as what was sent
+  # NOTE: If form is already pre-populated with the same text, it will skip sending text
   # - happens with input fields not ready
   # - pre-populated values
   # - character send does not register especially with auto-complete fields
   def send_text(element_name, txt_to_send, expected_text = nil)
     nretry = 0
     expected_text ||= txt_to_send
-    while nretry < 2
-      nretry += 1
-      if send_keys(element_name, txt_to_send)
-        if wait_for_text(element_name, expected_text)
-          return true
+    unless verify_text(element_name, expected_text)
+      while nretry < 2
+        nretry += 1
+        if send_keys(element_name, txt_to_send)
+          if verify_text(element_name, expected_text)
+            return true
+          else
+            dbg_msg('info', "Sent text not equal to current value: #{expected_text}, will retry", element_name)
+          end
         end
+        backspace_clear(element_name)
       end
-      backspace_clear(element_name)
     end
-    return false
+    return true
   end
 
   # Clears the text inside an input field by sending backspaces
